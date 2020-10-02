@@ -3,11 +3,24 @@ import axios from "axios";
 
 export default class PlantList extends Component {
   // add state with a property called "plants" - initialize as an empty array
+  state = {
+    plants: [],
+  };
 
+  fetchPlants = () => {
+    fetch("http://localhost:3333/plants")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        this.setState({ plants: data.plantsData });
+      });
+  };
   // when the component mounts:
   //   - fetch data from the server endpoint - http://localhost:3333/plants
   //   - set the returned plants array to this.state.plants
-
+  componentDidMount() {
+    this.fetchPlants();
+  }
   /*********  DON'T CHANGE ANYTHING IN THE RENDER FUNCTION *********/
   render() {
     return (
